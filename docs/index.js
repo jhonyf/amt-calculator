@@ -38,6 +38,18 @@
 			break: 95750
 		}
 	};
+	// non-amt standard deduction starting 2018 
+	var standardDeduction = {
+		'single': {
+			amount: 12000
+		},
+		'married': {
+			amount: 24000
+		},
+		'mfs': {
+			amount: 12000
+		}
+    	};
 	var ordinaryTaxRates = {
 		'single': {
 			'10': 0,
@@ -98,6 +110,8 @@
 	// Calculate ordinary tax.
 	function calculateOrdinaryTax() {
 		var inc = num(income)
+		// less standard deduction
+        	inc = inc - standardDeduction[filingStatus].amount;
 		var ord = ordinaryTaxRates[filingStatus];
 		var keys = Object.keys(ord);
 		var bracket = 0;
